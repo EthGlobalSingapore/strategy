@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {Script} from "forge-std/Script.sol";
+import {CounterPlugin} from "../src/CounterPlugin.sol";
+import {console} from "forge-std/console.sol";
+
+contract DeployScript is Script {
+    function run() external {
+        // Start broadcasting the transaction
+        vm.startBroadcast();
+
+        // Deploy the contract
+        CounterPlugin myContract = new CounterPlugin();
+
+        console.log("Contract deployed at:", address(myContract));
+
+        // Stop broadcasting the transaction
+        vm.stopBroadcast();
+    }
+}

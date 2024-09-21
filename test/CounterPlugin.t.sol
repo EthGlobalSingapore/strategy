@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
+import "forge-std/console.sol";
+
 
 import {Test} from "forge-std/Test.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
@@ -16,6 +18,9 @@ import {EntryPoint} from "@eth-infinitism/account-abstraction/core/EntryPoint.so
 import {UserOperation} from "@eth-infinitism/account-abstraction/interfaces/UserOperation.sol";
 
 import {CounterPlugin} from "../src/CounterPlugin.sol";
+
+// import {console} from "forge-std/console.sol";
+
 
 contract CounterTest is Test {
     using ECDSA for bytes32;

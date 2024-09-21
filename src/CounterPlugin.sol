@@ -11,6 +11,12 @@ import {
     PluginMetadata,
     IPlugin
 } from "modular-account-libs/interfaces/IPlugin.sol";
+import {FunctionReferenceLib} from "erc6900/reference-implementation/src/helpers/FunctionReferenceLib.sol";
+import {FunctionReference} from "erc6900/reference-implementation/src/interfaces/IPluginManager.sol";
+import {SingleOwnerPlugin} from "erc6900/reference-implementation/src/plugins/owner/SingleOwnerPlugin.sol";
+// import {IMultiOwnerPlugin} from "erc6900/reference-implementation/src/plugins/owner/IMultiOwnerPlugin.sol";
+
+
 
 /// @title Counter Plugin
 /// @author Your name
@@ -62,7 +68,7 @@ contract CounterPlugin is BasePlugin {
     function onUninstall(bytes calldata) external pure override {}
 
     /// @inheritdoc BasePlugin
-    function pluginManifest() external pure override returns (PluginManifest memory) {
+    function pluginManifest() public pure override returns (PluginManifest memory) {
         PluginManifest memory manifest;
 
         // since we are using the modular account, we will specify one depedency
@@ -110,6 +116,19 @@ contract CounterPlugin is BasePlugin {
 
         return manifest;
     }
+
+    function getManifestHash() external pure returns (bytes32) {
+
+        return keccak256(abi.encode(pluginManifest()));
+    }
+
+    // function getDependencies() external pure returns (FunctionReference[] memory) {
+    //     FunctionReference[] memory dependencies = new FunctionReference[](1);
+    //     dependencies[0] = FunctionReferenceLib.pack(
+    //         address(SingleOwnerPlugin), uint8(SingleOwnerPlugin.FunctionId.USER_OP_VALIDATION_OWNER)
+    //     );
+    //     return dependencies;
+    // }
 
     /// @inheritdoc BasePlugin
     function pluginMetadata() external pure virtual override returns (PluginMetadata memory) {
